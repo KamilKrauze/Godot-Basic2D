@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/pick_up_sound.gd" id="1_b46df"]
 
 [node name="PickUpSound" type="AudioStreamPlayer"]
+volume_db = -7.0
 script = ExtResource("1_b46df")
 
 [connection signal="finished" from="." to="." method="_on_finished"]
