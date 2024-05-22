@@ -1,0 +1,147 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6k24jkmkaa6f"]
+
+[ext_resource type="Script" path="res://UI/end_screen.gd" id="1_madfq"]
+[ext_resource type="Texture2D" uid="uid://b32v8bm3wrsoa" path="res://Sprites/blank_bg.png" id="1_pin70"]
+[ext_resource type="Script" path="res://Scripts/quit_button.gd" id="3_b5gqm"]
+[ext_resource type="AudioStream" uid="uid://c6h2pi6qcjrfs" path="res://Sounds/display_blip.wav" id="4_0psf4"]
+[ext_resource type="AudioStream" uid="uid://cqnilr6lv3il5" path="res://Sounds/final_blip.wav" id="5_otak5"]
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_madfq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_pin70")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.752941, 0.211765, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -3
+theme_override_constants/shadow_offset_y = -1
+theme_override_constants/line_spacing = 10
+theme_override_font_sizes/font_size = 45
+text = "VICTORY!
+"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Gems Found" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "GEMS FOUND = "
+
+[node name="GemsTally" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0/0
+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Point Penalty" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "POINT PENALTY = "
+
+[node name="PenaltyTally" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0 x 10"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Score" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "SCORE = "
+
+[node name="ScoreTally" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0
+"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1.74, 0)
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="TotalScore" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "TOTAL SCORE = "
+
+[node name="TotalTally" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0
+"
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 36
+disabled = true
+text = "  QUIT GAME  "
+script = ExtResource("3_b5gqm")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="DisplayBlip" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(455, 580)
+stream = ExtResource("4_0psf4")
+
+[node name="FinalBlip" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(455, 580)
+stream = ExtResource("5_otak5")
+
+[connection signal="visibility_changed" from="MarginContainer/VBoxContainer/HBoxContainer/GemsTally" to="." method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="MarginContainer/VBoxContainer/HBoxContainer2/PenaltyTally" to="." method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="MarginContainer/VBoxContainer/HBoxContainer3/ScoreTally" to="." method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="MarginContainer/VBoxContainer/HBoxContainer4/TotalTally" to="." method="_on_total_tally_visibility_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="MarginContainer/VBoxContainer/Button" method="_on_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="finished" from="FinalBlip" to="." method="_on_final_blip_finished"]

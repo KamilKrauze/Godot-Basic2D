@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnmt12l2m6fn0"]
+
+[ext_resource type="Script" path="res://Scripts/pick_up_sound.gd" id="1_b46df"]
+
+[node name="PickUpSound" type="AudioStreamPlayer"]
+script = ExtResource("1_b46df")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

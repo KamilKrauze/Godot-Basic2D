@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvnrhcaf3vrha"]
+
+[ext_resource type="Script" path="res://Scripts/pickup.gd" id="1_0u8gf"]
+[ext_resource type="SpriteFrames" uid="uid://bjrhhqiutw322" path="res://Sprites/gem.tres" id="1_6ahj2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1nuts"]
+radius = 25.0
+height = 70.0
+
+[node name="gem" type="Node2D"]
+script = ExtResource("1_0u8gf")
+SOUND = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+sprite_frames = ExtResource("1_6ahj2")
+animation = &"spin"
+autoplay = "spin"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_1nuts")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

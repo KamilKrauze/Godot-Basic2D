@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgf1hmoyqvy5e"]
+
+[ext_resource type="Script" path="res://Scripts/kill_plane.gd" id="1_ydhr1"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ilrdm"]
+distance = -1.1
+
+[node name="KillPlane" type="Area2D"]
+script = ExtResource("1_ydhr1")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("WorldBoundaryShape2D_ilrdm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

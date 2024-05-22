@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhdbormlmeivj"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_ew3ct"]
+[ext_resource type="SpriteFrames" uid="uid://chre6sh8mijer" path="res://Scenes/Player/johnny.tres" id="1_kj3am"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oqwwp"]
+radius = 3.5
+height = 10.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(10, 10)
+script = ExtResource("1_ew3ct")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+texture_repeat = 1
+sprite_frames = ExtResource("1_kj3am")
+animation = &"jump"
+frame_progress = 0.102546
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_bottom = 2230
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.48, 0)
+shape = SubResource("CapsuleShape2D_oqwwp")

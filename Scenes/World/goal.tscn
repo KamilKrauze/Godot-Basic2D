@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://sxmr0peif2sy"]
+
+[ext_resource type="Script" path="res://Scripts/goal.gd" id="1_qcsht"]
+[ext_resource type="SpriteFrames" uid="uid://37tlks64s70o" path="res://Sprites/goal_flag.tres" id="2_41elc"]
+[ext_resource type="AudioStream" uid="uid://14ocojnml7m8" path="res://Sounds/goal.wav" id="3_nkhrj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqovw"]
+size = Vector2(8.1, 15)
+
+[node name="GoalFlag" type="Area2D"]
+scale = Vector2(10, 10)
+collision_mask = 2
+script = ExtResource("1_qcsht")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.05, 0.5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_oqovw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_41elc")
+autoplay = "default"
+frame_progress = 0.132141
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nkhrj")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
